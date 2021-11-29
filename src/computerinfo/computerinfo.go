@@ -11,7 +11,7 @@ import (
 )
 
 // Canvas is the main object for the window
-func canvasName() fyne.CanvasObject {
+func obj_ComputerName() fyne.CanvasObject {
 
 	computername := utils.GetComputerName()
 
@@ -22,13 +22,40 @@ func canvasName() fyne.CanvasObject {
 
 	return label
 }
+func obj_IPAddress() []fyne.CanvasObject {
+	labels := []fyne.CanvasObject{}
+
+	ipaddress := utils.GetIPAddress()
+
+	for _, ip := range ipaddress {
+		label := canvas.NewText(ip, color.White)
+		label.TextSize = 20
+		label.TextStyle = fyne.TextStyle{Bold: true}
+		label.Alignment = fyne.TextAlignCenter
+		labels = append(labels, label)
+	}
+
+	return labels
+}
+
+func allObjects() []fyne.CanvasObject {
+	return []fyne.CanvasObject{
+		obj_ComputerName(),
+		container.NewVBox(
+			obj_IPAddress()...,
+		),
+	}
+}
 
 func Container() fyne.CanvasObject {
-	// Create a layout
-	layout := fyneLayout.NewCenterLayout()
+	// Create a center layout
+	// layout := fyneLayout.NewCenterLayout()
+
+	// create a vertical layout
+	verticalLayout := fyneLayout.NewVBoxLayout()
 
 	// Create a new container
-	cont := container.New(layout, canvasName())
+	cont := container.New(verticalLayout, allObjects()...)
 	cont.Resize(fyne.NewSize(200, 200))
 
 	return cont
