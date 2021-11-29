@@ -7,10 +7,28 @@
             "label": "Go Build",
             "type": "shell",
             "command": "go build -o bin/",
+            "presentation": {
+                "reveal": "silent",
+                "clear": true
+            },
+        },
+        {
+            "label": "Fyne Package",
+            "type": "shell",
+            "command": "fyne package",
             "group": {
                 "kind": "build",
                 "isDefault": true
             },
+            "presentation": {
+                "reveal": "silent",
+                "clear": true
+            },
+        },
+        {
+            "label": "Fyne Bundle",
+            "type": "shell",
+            "command": "fyne bundle -o data.go Icon.png",
             "presentation": {
                 "reveal": "silent",
                 "clear": true
