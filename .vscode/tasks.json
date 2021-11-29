@@ -15,7 +15,7 @@
         {
             "label": "Fyne Package",
             "type": "shell",
-            "command": "fyne package --name 'Computer Info'",
+            "command": "fyne package --name 'Computer Info' --appVersion ${input:appVersion}",
             "group": {
                 "kind": "build",
                 "isDefault": true
@@ -33,6 +33,15 @@
                 "reveal": "silent",
                 "clear": true
             },
+        }
+    ],
+    "inputs": [
+        {
+            "id": "appVersion",
+            "type": "promptString",
+            "description": "Application Version (X.Y.Z)",
+            "default": "1.0.0"
+            // type specific configuration attributes
         }
     ]
 }
