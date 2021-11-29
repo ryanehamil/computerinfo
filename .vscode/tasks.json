@@ -15,7 +15,7 @@
         {
             "label": "Fyne Package",
             "type": "shell",
-            "command": "fyne package",
+            "command": "fyne package --name 'Computer Info'",
             "group": {
                 "kind": "build",
                 "isDefault": true
