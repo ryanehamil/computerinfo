@@ -23,6 +23,8 @@ func GetIPAddress() []string {
 		// get the interface name
 		interfaceName := netInterface.Name
 
+		flags := netInterface.Flags.String()
+
 		// get the interface adapter
 
 		address, _ := netInterface.Addrs()
@@ -31,6 +33,8 @@ func GetIPAddress() []string {
 		for _, addr := range address {
 			if ipnet, ok := addr.(*net.IPNet); ok &&
 				!ipnet.IP.IsLoopback() &&
+				// check if up flag is set
+				strings.Contains(flags, "up") &&
 				!strings.Contains(ipnet.IP.String(), "169.254") &&
 				!strings.Contains(interfaceName, "VirtualBox") &&
 				!strings.Contains(interfaceName, "Virtual") {
