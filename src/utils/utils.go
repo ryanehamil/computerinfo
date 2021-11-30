@@ -3,6 +3,7 @@ package utils
 import (
 	"net"
 	"os"
+	"strings"
 )
 
 func GetComputerName() string {
@@ -23,13 +24,16 @@ func GetIPAddress() []string {
 		interfaceName := netInterface.Name
 
 		// get the interface adapter
-		
 
 		address, _ := netInterface.Addrs()
 
 		// check if the address is ipv4
 		for _, addr := range address {
-			if ipnet, ok := addr.(*net.IPNet); ok && !ipnet.IP.IsLoopback() && ipnet.IP.String()[0:7] != "169.254" {
+			if ipnet, ok := addr.(*net.IPNet); ok &&
+				!ipnet.IP.IsLoopback() &&
+				!strings.Contains(ipnet.IP.String(), "169.254") &&
+				!strings.Contains(interfaceName, "VirtualBox") &&
+				!strings.Contains(interfaceName, "Virtual") {
 				if ipnet.IP.To4() != nil {
 					addrs = append(addrs, interfaceName+": "+ipnet.IP.String())
 				}
