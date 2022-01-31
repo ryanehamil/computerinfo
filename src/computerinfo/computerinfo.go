@@ -1,12 +1,11 @@
 package computerinfo
 
 import (
-	"image/color"
-
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/canvas"
 	"fyne.io/fyne/v2/container"
 	fyneLayout "fyne.io/fyne/v2/layout"
+	"fyne.io/fyne/v2/theme"
 	"github.com/ryanehamil/computerinfo/src/utils"
 )
 
@@ -15,7 +14,7 @@ func obj_ComputerName() fyne.CanvasObject {
 
 	computername := utils.GetComputerName()
 
-	label := canvas.NewText(computername, color.White)
+	label := canvas.NewText(computername, theme.TextColor())
 	label.TextSize = 100
 	label.TextStyle = fyne.TextStyle{Bold: true}
 	label.Alignment = fyne.TextAlignCenter
@@ -28,7 +27,7 @@ func obj_IPAddress() []fyne.CanvasObject {
 	ipaddress := utils.GetIPAddress()
 
 	for _, ip := range ipaddress {
-		label := canvas.NewText(ip, color.White)
+		label := canvas.NewText(ip, theme.TextColor())
 		label.TextSize = 20
 		label.TextStyle = fyne.TextStyle{Bold: true}
 		label.Alignment = fyne.TextAlignCenter
