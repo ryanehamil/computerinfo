@@ -4,18 +4,9 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "Go Build",
+            "label": "Fyne Cross - Build for Windows",
             "type": "shell",
-            "command": "go build -o bin/",
-            "presentation": {
-                "reveal": "silent",
-                "clear": true
-            },
-        },
-        {
-            "label": "Fyne Package",
-            "type": "shell",
-            "command": "fyne package --name 'Computer Info' --appVersion ${input:appVersion}",
+            "command": "fyne-cross windows",
             "group": {
                 "kind": "build",
                 "isDefault": true
@@ -26,14 +17,14 @@
             },
         },
         {
-            "label": "Fyne Bundle",
+            "label": "Go Build",
             "type": "shell",
-            "command": "fyne bundle -o data.go Icon.png",
+            "command": "go build -o bin/",
             "presentation": {
                 "reveal": "silent",
                 "clear": true
             },
-        }
+        },
     ],
     "inputs": [
         {
