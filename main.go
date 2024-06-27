@@ -10,7 +10,7 @@ func main() {
 	a := app.New()
 
 	// create fyne resource for icon.png
-	a.SetIcon(resourceIconPng)
+	// a.SetIcon(resourceIconPng)
 
 	w := a.NewWindow("Computer Info")
 
