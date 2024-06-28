@@ -4,6 +4,8 @@ import (
 	"net"
 	"os"
 	"strings"
+
+	"github.com/atotto/clipboard"
 )
 
 func GetComputerName() string {
@@ -55,4 +57,12 @@ func ConvertIPAddress(addrs []net.Addr) []string {
 		ipaddress = append(ipaddress, addr.String())
 	}
 	return ipaddress
+}
+
+// SetClipboard, returns error or nil
+
+func SetClipboard(text string) error {
+	// Set the clipboard to the text
+	// Get the clipboard from the clipboard package
+	return clipboard.WriteAll(text)
 }
