@@ -7,7 +7,7 @@ A simple application to display the local computer name and IP addresses
 Built with fyne package
 
 ```
-fyne package
+fyne package --release
 ```
 
 ## Usage
