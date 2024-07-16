@@ -1,0 +1,18 @@
+[Details]
+  Icon = "Icon.png"
+  Name = "Computer Info"
+  ID = "ryanehamil.computerinfo"
+  Version = "1.1.1"
+  Build = 3
+
+[Development]
+  HelperText = "This binary was built with debug symbols"
+
+[Release]
+  HelperText = "This binary was built without debug symbols"
+
+[LinuxAndBSD]
+  GenericName = "Computer Info"
+  Categories = ["Utilities"]
+  Comment = "Show Computername and IP addresses"
+  Keywords = ["ipaddress", "computername"]
