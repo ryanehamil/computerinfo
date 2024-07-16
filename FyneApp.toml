@@ -2,8 +2,8 @@
   Icon = "Icon.png"
   Name = "Computer Info"
   ID = "ryanehamil.computerinfo"
-  Version = "1.1.1"
-  Build = 3
+  Version = "1.2.1"
+  Build = 4
 
 [Development]
   HelperText = "This binary was built with debug symbols"
