@@ -3,7 +3,7 @@
   Name = "Computer Info"
   ID = "ryanehamil.computerinfo"
   Version = "1.2.1"
-  Build = 5
+  Build = 6
 
 [Development]
   HelperText = "This binary was built with debug symbols"

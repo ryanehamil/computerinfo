@@ -2,10 +2,7 @@ module github.com/ryanehamil/computerinfo
 
 go 1.22
 
-require (
-	fyne.io/fyne/v2 v2.5.0
-	github.com/atotto/clipboard v0.1.4
-)
+require fyne.io/fyne/v2 v2.5.0
 
 require (
 	fyne.io/systray v1.11.0 // indirect
