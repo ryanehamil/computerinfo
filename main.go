@@ -16,7 +16,7 @@ func main() {
 
 	w.Resize(fyne.NewSize(800, 200))
 
-	w.SetContent(computerinfo.Container())
+	w.SetContent(computerinfo.CanvasObject())
 
 	w.ShowAndRun()
 }

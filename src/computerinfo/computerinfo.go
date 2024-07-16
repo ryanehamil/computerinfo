@@ -2,69 +2,65 @@ package computerinfo
 
 import (
 	"fyne.io/fyne/v2"
-	"fyne.io/fyne/v2/canvas"
 	"fyne.io/fyne/v2/container"
-	fyneLayout "fyne.io/fyne/v2/layout"
-	"fyne.io/fyne/v2/theme"
+	"fyne.io/fyne/v2/widget"
 	"github.com/ryanehamil/computerinfo/src/utils"
 )
 
-// obj_ComputerName returns a canvas object containing the computer name text
-func obj_ComputerName() fyne.CanvasObject {
-	// Get the computer name from the utils package
-	computername := utils.GetComputerName()
+// CustomTappableLabel is a label that supports tapping
+type CustomTappableLabel struct {
+	widget.Label
+}
 
-	// Create a new text label with the computer name
-	label := canvas.NewText(computername, theme.TextColor())
-	label.TextSize = 100
-	label.TextStyle = fyne.TextStyle{Bold: true}
-	label.Alignment = fyne.TextAlignCenter
-
-	// Return the label as a canvas object
+// NewCustomTappableLabel creates a new tappable label
+func NewCustomTappableLabel(text string) *CustomTappableLabel {
+	label := &CustomTappableLabel{
+		Label: widget.Label{
+			Text:      text,
+			TextStyle: fyne.TextStyle{Bold: true},
+		},
+	}
+	label.ExtendBaseWidget(label)
 	return label
 }
 
-// obj_IPAddress returns a slice of canvas objects containing the IP addresses of the computer
+// Tapped is called when the label is tapped
+func (l *CustomTappableLabel) Tapped(_ *fyne.PointEvent) {
+	fyne.CurrentApp().Driver().AllWindows()[0].Clipboard().SetContent(l.Text)
+}
+
+// TappedSecondary is called when the label is right-clicked (not used here)
+func (l *CustomTappableLabel) TappedSecondary(_ *fyne.PointEvent) {}
+
+func obj_ComputerName() fyne.CanvasObject {
+	computername := utils.GetComputerName()
+	label := NewCustomTappableLabel(computername)
+	label.Alignment = fyne.TextAlignCenter
+	// label.TextSize = 100
+	return label
+}
+
 func obj_IPAddress() []fyne.CanvasObject {
+	ipAddresses := utils.GetIPAddress()
 	labels := []fyne.CanvasObject{}
 
-	// Get the IP addresses of the computer
-	ipaddress := utils.GetIPAddress()
-
-	// Loop over the IP addresses and create a label for each one
-	for _, ip := range ipaddress {
-		label := canvas.NewText(ip, theme.TextColor())
-		label.TextSize = 20
-		label.TextStyle = fyne.TextStyle{Bold: true}
+	for _, ip := range ipAddresses {
+		container.NewHBox()
+		label := NewCustomTappableLabel(ip)
 		label.Alignment = fyne.TextAlignCenter
+		// label.TextSize = 20
 		labels = append(labels, label)
 	}
 
-	// Return the slice of labels as canvas objects
 	return labels
 }
 
-// allObjects returns a slice of canvas objects containing both the computer name and IP addresses
 func allObjects() []fyne.CanvasObject {
-	return []fyne.CanvasObject{
-		// Get the computer name canvas object
+	return append([]fyne.CanvasObject{
 		obj_ComputerName(),
-		// Create a VBox container containing the IP addresses
-		container.NewVBox(
-			obj_IPAddress()...,
-		),
-	}
+	}, obj_IPAddress()...)
 }
 
-// Container creates a container object for the window
-func Container() fyne.CanvasObject {
-	// Create a vertical layout
-	verticalLayout := fyneLayout.NewVBoxLayout()
-
-	// Create a new container using the vertical layout and the canvas objects
-	cont := container.New(verticalLayout, allObjects()...)
-	cont.Resize(fyne.NewSize(200, 200))
-
-	// Return the container
-	return cont
+func CanvasObject() fyne.CanvasObject {
+	return container.NewVBox(allObjects()...)
 }
