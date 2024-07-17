@@ -2,10 +2,8 @@ package computerinfo
 
 import (
 	"fyne.io/fyne/v2"
-	"fyne.io/fyne/v2/canvas"
 	"fyne.io/fyne/v2/container"
 	fyneLayout "fyne.io/fyne/v2/layout"
-	"fyne.io/fyne/v2/theme"
 	"github.com/ryanehamil/computerinfo/src/utils"
 )
 
@@ -15,33 +13,42 @@ func obj_ComputerName() fyne.CanvasObject {
 	computername := utils.GetComputerName()
 
 	// Create a new text label with the computer name
-	label := canvas.NewText(computername, theme.TextColor())
-	label.TextSize = 100
-	label.TextStyle = fyne.TextStyle{Bold: true}
-	label.Alignment = fyne.TextAlignCenter
+	object := utils.NewTextButton(computername)
+	object.TextSize = 100
+	object.TextStyle = fyne.TextStyle{Bold: true}
+	object.Alignment = fyne.TextAlignCenter
 
 	// Return the label as a canvas object
-	return label
+	return object
 }
 
 // obj_IPAddress returns a slice of canvas objects containing the IP addresses of the computer
 func obj_IPAddress() []fyne.CanvasObject {
-	labels := []fyne.CanvasObject{}
+	objects := []fyne.CanvasObject{}
 
 	// Get the IP addresses of the computer
 	ipaddress := utils.GetIPAddress()
 
+	// Get only the first IP address
+	ipaddress = ipaddress[:1]
+
 	// Loop over the IP addresses and create a label for each one
 	for _, ip := range ipaddress {
-		label := canvas.NewText(ip, theme.TextColor())
-		label.TextSize = 20
-		label.TextStyle = fyne.TextStyle{Bold: true}
-		label.Alignment = fyne.TextAlignCenter
-		labels = append(labels, label)
+		// Create a new text label with the IP address
+		object := utils.NewTextButton(ip)
+		// object := canvas.NewText(ip, theme.Color("foreground"))
+		object.TextSize = 20
+		object.TextStyle = fyne.TextStyle{Bold: true}
+		object.Alignment = fyne.TextAlignCenter
+		// object.Color = theme.Color("foreground")
+
+		// Append the label to the slice of labels
+		objects = append(objects, object)
+
 	}
 
 	// Return the slice of labels as canvas objects
-	return labels
+	return objects
 }
 
 // allObjects returns a slice of canvas objects containing both the computer name and IP addresses
