@@ -9,54 +9,48 @@ import (
 
 // obj_ComputerName returns a canvas object containing the computer name text
 func obj_ComputerName() fyne.CanvasObject {
-	// Get the computer name from the utils package
 	computername := utils.GetComputerName()
 
-	// Create a new text label with the computer name
-	object := utils.NewTextButton(computername)
-	object.TextSize = 100
-	object.TextStyle = fyne.TextStyle{Bold: true}
-	object.Alignment = fyne.TextAlignCenter
+	object := utils.NewClickableText(computername)
+	object.Text.TextSize = 100
 
-	// Return the label as a canvas object
 	return object
 }
 
 // obj_IPAddress returns a slice of canvas objects containing the IP addresses of the computer
 func obj_IPAddress() []fyne.CanvasObject {
-	objects := []fyne.CanvasObject{}
+	// ipaddress := utils.GetIPAddress()
+	ipaddress := utils.GetIPAddressObject()
 
-	// Get the IP addresses of the computer
-	ipaddress := utils.GetIPAddress()
+	InterfaceObjects := []fyne.CanvasObject{}
 
-	// Get only the first IP address
-	ipaddress = ipaddress[:1]
-
-	// Loop over the IP addresses and create a label for each one
 	for _, ip := range ipaddress {
-		// Create a new text label with the IP address
-		object := utils.NewTextButton(ip)
-		// object := canvas.NewText(ip, theme.Color("foreground"))
-		object.TextSize = 20
-		object.TextStyle = fyne.TextStyle{Bold: true}
-		object.Alignment = fyne.TextAlignCenter
-		// object.Color = theme.Color("foreground")
+		interfaceName := ip["name"]
+		ip := ip["ip"]
+		object := container.NewHBox()
 
-		// Append the label to the slice of labels
-		objects = append(objects, object)
+		ClickableName := utils.NewClickableText(interfaceName)
+		ClickableName.Text.TextSize = 20
 
+		object.Add(ClickableName)
+
+		ClickableIP := utils.NewClickableText(ip)
+		ClickableIP.Text.TextSize = 20
+
+		object.Add(ClickableIP)
+
+		wrapper := container.NewCenter(object)
+
+		InterfaceObjects = append(InterfaceObjects, wrapper)
 	}
 
-	// Return the slice of labels as canvas objects
-	return objects
+	return InterfaceObjects
 }
 
 // allObjects returns a slice of canvas objects containing both the computer name and IP addresses
 func allObjects() []fyne.CanvasObject {
 	return []fyne.CanvasObject{
-		// Get the computer name canvas object
 		obj_ComputerName(),
-		// Create a VBox container containing the IP addresses
 		container.NewVBox(
 			obj_IPAddress()...,
 		),
@@ -70,7 +64,7 @@ func Container() fyne.CanvasObject {
 
 	// Create a new container using the vertical layout and the canvas objects
 	cont := container.New(verticalLayout, allObjects()...)
-	cont.Resize(fyne.NewSize(200, 200))
+	// cont.Resize(fyne.NewSize(200, 200))
 
 	// Return the container
 	return cont
