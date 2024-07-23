@@ -13,6 +13,17 @@ var _ fyne.Theme = (*Theme)(nil)
 
 // The color package has to be imported from "image/color".
 
+func (m Theme) GetColor(name string) color.Color {
+	variant := fyne.CurrentApp().Settings().ThemeVariant()
+	switch variant {
+	case theme.VariantDark:
+		return color.RGBA{0, 0, 0, 255}
+	case theme.VariantLight:
+		return color.RGBA{255, 255, 255, 255}
+	}
+	return color.RGBA{0, 0, 0, 255}
+}
+
 func (m Theme) Color(name fyne.ThemeColorName, variant fyne.ThemeVariant) color.Color {
 	if name == theme.ColorNameBackground {
 		if variant == theme.VariantLight {
@@ -43,10 +54,6 @@ func (m Theme) Color(name fyne.ThemeColorName, variant fyne.ThemeVariant) color.
 }
 
 func (m Theme) Icon(name fyne.ThemeIconName) fyne.Resource {
-	// if name == theme.IconNameHome {
-	// 	return fyne.NewStaticResource("myHome", homeBytes)
-	// }
-
 	return theme.DefaultTheme().Icon(name)
 }
 

@@ -51,7 +51,13 @@ func (ct *ClickableText) Tapped(_ *fyne.PointEvent) {
 	setClipboard(ct.Text.Text)
 
 	// Set the text color to green when tapped, and reset it after 1 second
-	ct.tapBG.FillColor = color.RGBA{0, 120, 20, 200}
+	variant := fyne.CurrentApp().Settings().ThemeVariant()
+	switch variant {
+	case theme.VariantDark:
+		ct.tapBG.FillColor = color.RGBA{10, 110, 0, 180}
+	case theme.VariantLight:
+		ct.tapBG.FillColor = color.RGBA{10, 100, 10, 180}
+	}
 
 	go func() {
 		<-time.After(time.Millisecond * 400)
